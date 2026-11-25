@@ -26,6 +26,15 @@ import { join } from "node:path";
 const LINE =
   "Maya, ten, carried her father's toolbox up the ladder for the last time, tightened the last bolt on the treehouse roof, and stayed up there long after dark, legs swinging over a yard she could finally see from above.";
 
+// The gate requires the line to be 1–240 characters and not only
+// whitespace; refuse to write anything that would fail it.
+if (LINE.length < 1 || LINE.length > 240 || LINE.trim().length === 0) {
+  console.error(
+    `error: entry line is invalid (length ${LINE.length}, must be 1-240 characters and not only whitespace)`,
+  );
+  process.exit(1);
+}
+
 // The grader mounts the output directory at /output and tells us via
 // MAKEFUN_OUTPUT_DIR; default to /output when the variable is unset.
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
